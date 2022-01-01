@@ -1,0 +1,23 @@
+# 1. Base image
+FROM node:17-alpine3.12
+
+# The default user in a Dockerfile is the user of the parent image 
+USER node
+
+# Creating parent folder
+RUN mkdir -p /home/node/app
+
+# Specifying the parent directory in image
+WORKDIR /home/node/app
+
+# Change the owner of file system files and copy
+COPY --chown=node:node ./package.json ./
+
+# 2. Running Command install, Update base image
+RUN npm install
+
+# Copying Files, with node as owner
+COPY --chown=node:node ./ ./
+
+# 3. Command override, do what the image is ment for
+CMD ["npm", "run", "start"]

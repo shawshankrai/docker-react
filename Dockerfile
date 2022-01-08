@@ -27,8 +27,9 @@ FROM nginx
 # deployment ready build will be inside the folder /app/build
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# c. CMD is already present in nginx base image
-# example - CMD ["nginx" "-g" "daemon off;"]
+# c. CMD and Expose is already present in nginx base image
+EXPOSE 80
+CMD ["nginx" "-g" "daemon off;"]
 
 
 

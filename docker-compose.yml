@@ -1,32 +1,8 @@
-# Docker-Compose Version
 version: '3'
 services:
-  web: 
-    # For issue: Windows not Detecting Changes
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    # Same as -it
-    stdin_open: true
-    # Assumes docker file is in current dir
+  web:
     build:
-      # from where we want oour file and folders
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    volumes:
-      - /home/node/app/node_modules
-      # Current folder outside the container to inside
-      - .:/home/node/app
-  # to run test of our react app as seprate service:
-  tests:
-    build:
-      # from where we want oour file and folders
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /home/node/app/node_modules
-      # Current folder outside the container to inside
-      - .:/home/node/app
-    # override default command which is present in Dockerfile.dev
-    command: ["npm", "run", "test"]
+      - '80:80'
